@@ -1,0 +1,26 @@
+{
+  "name": "kf-arranger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kids-first/kf-arranger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kids-first/kf-arranger/issues"
+  },
+  "homepage": "https://github.com/kids-first/kf-arranger#readme",
+  "dependencies": {
+    "@arranger/server": "^0.1.12"
+  },
+  "devDependencies": {
+    "prettier": "^1.11.1"
+  }
+}
