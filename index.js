@@ -1,3 +1,11 @@
-let createServer = require("@arranger/server").default;
+#!/usr/bin/env node
+require("dotenv").config();
+require("@babel/register")({
+  presets: ["@babel/env"],
+  plugins: [
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-object-rest-spread",
+  ],
+});
 
-createServer().listen(5050);
+require("./src/index");
