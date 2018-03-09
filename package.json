@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/kids-first/kf-arranger#readme",
   "dependencies": {
-    "@arranger/server": "^0.1.27",
+    "@arranger/server": "^0.1.28",
     "node-fetch": "^2.1.1",
     "query-string": "^5.1.0"
   },
