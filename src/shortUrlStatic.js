@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-import { parse } from "query-string";
 
 export default async (req, res) => {
   fetch(
