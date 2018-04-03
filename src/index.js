@@ -16,7 +16,7 @@ const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic);
 
-app.use(egoToken({ required: false, egoURL }));
+app.use(egoToken({ required: true, egoURL }));
 
 Arranger({ io }).then(router => {
   app.use(router);
