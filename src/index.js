@@ -9,13 +9,14 @@ import shortUrlStatic from "./shortUrlStatic";
 import cors from "cors";
 
 const port = process.env.PORT || 5050;
+const egoURL = process.env.EGO_API;
 const app = express();
 const http = Server(app);
 const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic);
 
-app.use(egoToken({ required: false }));
+app.use(egoToken({ required: false, egoURL }));
 
 Arranger({ io }).then(router => {
   app.use(router);
