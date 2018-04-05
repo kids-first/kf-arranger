@@ -7,6 +7,7 @@ import Arranger from "@arranger/server";
 import egoToken from "ego-token-middleware";
 import shortUrlStatic from "./shortUrlStatic";
 import cors from "cors";
+import bodyParser from "body-parser";
 
 const port = process.env.PORT || 5050;
 const egoURL = process.env.EGO_API;
@@ -16,7 +17,21 @@ const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic);
 
-app.use(egoToken({ required: true, egoURL }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// This middleware extracts the authorization key from form submissions and
+// attaches it on the request header for the middleware to process.
+app.use((req, res, next) => {
+  if (req.body && req.body.params) {
+    const params = JSON.parse(req.body.params);
+    if (params.authorization) {
+      req.headers.authorization =
+        req.headers.authorization || params.authorization;
+    }
+  }
+  next();
+}, egoToken({ required: true, egoURL }));
 
 Arranger({ io }).then(router => {
   app.use(router);

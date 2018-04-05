@@ -20,6 +20,7 @@
   "dependencies": {
     "@arranger/server": "0.3.6",
     "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.2",
     "chalk-animation": "^1.5.0",
     "cors": "^2.8.4",
     "ego-token-middleware": "0.0.3",
