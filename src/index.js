@@ -17,7 +17,7 @@ const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic);
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // This middleware extracts the authorization key from form submissions and
