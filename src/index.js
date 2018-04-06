@@ -25,10 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   if (req.body && req.body.httpHeaders) {
     const httpHeaders = JSON.parse(req.body.httpHeaders);
-    if (httpHeaders.authorization) {
-      req.headers.authorization =
-        req.headers.authorization || httpHeaders.authorization;
-    }
+    Object.entries(httpHeaders).forEach(([key, value]) => {
+      req.headers[key] = value;
+    });
   }
   next();
 }, egoToken({ required: true, egoURL }));
