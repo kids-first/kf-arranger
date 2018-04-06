@@ -23,11 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // This middleware extracts the authorization key from form submissions and
 // attaches it on the request header for the middleware to process.
 app.use((req, res, next) => {
-  if (req.body && req.body.params) {
-    const params = JSON.parse(req.body.params);
-    if (params.authorization) {
+  if (req.body && req.body.httpHeaders) {
+    const httpHeaders = JSON.parse(req.body.httpHeaders);
+    if (httpHeaders.authorization) {
       req.headers.authorization =
-        req.headers.authorization || params.authorization;
+        req.headers.authorization || httpHeaders.authorization;
     }
   }
   next();
