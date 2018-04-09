@@ -1,9 +1,8 @@
 import fetch from "node-fetch";
+import urlJoin from "url-join";
 
-export default async (req, res) => {
-  fetch(
-    `${process.env.RIFF_API}${req.params.shortUrl}`
-  )
+export default (req, res) => {
+  fetch(urlJoin(process.env.RIFF_API, req.params.shortUrl))
     .then(r => r.json())
     .then(data => {
       let { content } = data;
