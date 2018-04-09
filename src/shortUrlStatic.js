@@ -2,14 +2,11 @@ import fetch from "node-fetch";
 
 export default async (req, res) => {
   fetch(
-    `https://13gqusdt40.execute-api.us-east-1.amazonaws.com/Dev/${
-      req.params.shortUrl
-    }`
+    `${process.env.RIFF_API}${req.params.shortUrl}`
   )
     .then(r => r.json())
     .then(data => {
-      let { content } = data.value;
-
+      let { content } = data;
       let html = `
         <html>
           <head>
