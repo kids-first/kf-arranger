@@ -26,8 +26,10 @@
     "ego-token-middleware": "0.0.3",
     "express": "^4.16.2",
     "node-fetch": "^2.1.1",
+    "url-join": "^4.0.0",
+    "node-vault": "^0.8.0",
     "socket.io": "^2.0.4",
-    "url-join": "^4.0.0"
+    "vault-auth-aws": "^0.1.7"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
