@@ -1,11 +1,12 @@
 import fetch from "node-fetch";
 import urlJoin from "url-join";
+import { get } from "lodash";
 
-export default (req, res) => {
+export default ({ accessor = "content" } = {}) => (req, res) => {
   fetch(urlJoin(process.env.RIFF_API, req.params.shortUrl))
     .then(r => r.json())
     .then(data => {
-      let { content } = data;
+      let content = get(data, contentAccessor, {});
       let html = `
         <html>
           <head>
