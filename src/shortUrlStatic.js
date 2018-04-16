@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import urlJoin from "url-join";
 import { get } from "lodash";
 
-export default ({ accessor = "content" } = {}) => (req, res) => {
+export default ({ contentAccessor = "content" } = {}) => (req, res) => {
   fetch(urlJoin(process.env.RIFF_API, req.params.shortUrl))
     .then(r => r.json())
     .then(data => {
