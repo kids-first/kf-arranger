@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     });
   }
   next();
-}, egoToken({ required: true, egoURL }));
+}, egoToken({ egoURL, required: true, requireUserApproval: true }));
 
 Arranger({ io }).then(router => {
   app.use(router);
