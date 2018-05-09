@@ -15,7 +15,7 @@ const app = express();
 const http = Server(app);
 const io = socketIO(http);
 app.use(cors());
-app.get("/s/:shortUrl", shortUrlStatic({ contentAccessor: "value.content" }));
+app.get("/s/:shortUrl", shortUrlStatic());
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
