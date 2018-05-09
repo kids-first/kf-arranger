@@ -6,6 +6,8 @@ export default ({ contentAccessor = "content" } = {}) => (req, res) => {
   fetch(urlJoin(process.env.RIFF_API, req.params.shortUrl))
     .then(r => r.json())
     .then(data => {
+      let error = get(data, "error");
+      if (error) console.log(JSON.stringify(data, null, 2));
       let content = get(data, contentAccessor, {});
       let html = `
         <html>
@@ -18,10 +20,13 @@ export default ({ contentAccessor = "content" } = {}) => (req, res) => {
             <meta property="og:image" content="${content["og:image"]}" />
           </head>
           <body>
-            <script>window.location.href = "${content.longUrl}"</script>
+            ${error ||
+              (content.longUrl
+                ? `<script>window.location.href = "${content.longUrl}"</script>`
+                : `URL not found`)}
           </body>
         </html>
-      )`;
+      `;
 
       res.send(html);
     })
