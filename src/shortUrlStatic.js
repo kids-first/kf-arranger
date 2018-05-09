@@ -7,7 +7,6 @@ export default ({ contentAccessor = "content" } = {}) => (req, res) => {
     .then(r => r.json())
     .then(data => {
       let error = get(data, "error");
-      if (error) console.log(JSON.stringify(data, null, 2));
       let content = get(data, contentAccessor, {});
       let html = `
         <html>
