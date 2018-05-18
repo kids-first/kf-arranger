@@ -42,6 +42,10 @@ app.use(
         route: [`/(.*)/graphql`, `/(.*)/graphql/(.*)`, `/(.*)/download`],
         status: ["approved"],
         role: "user"
+      },
+      {
+        type: "allow",
+        route: [`/(.*)/ping`]
       }
     ]
   })
