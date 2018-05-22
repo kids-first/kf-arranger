@@ -1,7 +1,5 @@
-import { get } from "lodash";
+import { get, toLower } from "lodash";
 import { parseResolveInfo } from "graphql-parse-resolve-info";
-
-const toLower = x => (x || "").toLowerCase();
 
 export const onlyAdminMutations = {
   Mutation: (resolve, parent, args, context, info) => {
