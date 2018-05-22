@@ -19,13 +19,14 @@
   },
   "homepage": "https://github.com/kids-first/kf-arranger#readme",
   "dependencies": {
-    "@arranger/server": "^0.3.50",
+    "@arranger/server": "^0.3.51",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "chalk-animation": "^1.5.0",
     "cors": "^2.8.4",
     "ego-token-middleware": "0.0.8",
     "express": "^4.16.2",
+    "graphql-parse-resolve-info": "^4.0.0-beta.7",
     "node-fetch": "^2.1.1",
     "socket.io": "^2.0.4",
     "url-join": "^4.0.0"

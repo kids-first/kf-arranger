@@ -11,7 +11,7 @@ import bodyParser from "body-parser";
 
 import { port, egoURL, projectId, esHost } from "./env";
 import shortUrlStatic from "./shortUrlStatic";
-import { injectBodyHttpHeaders } from "./middleware";
+import { onlyAdminMutations, injectBodyHttpHeaders } from "./middleware";
 
 const app = express();
 const http = Server(app);
@@ -26,6 +26,7 @@ app.use(injectBodyHttpHeaders());
 app.use(
   egoTokenMiddleware({
     egoURL,
+    required: true,
     accessRules: [
       {
         type: "allow",
@@ -51,7 +52,15 @@ app.use(
   })
 );
 
-Arranger({ io, projectId, esHost }).then(router => {
+Arranger({
+  io,
+  projectId,
+  esHost,
+  graphqlOptions: {
+    context: ({ jwt }) => ({ jwt }),
+    middleware: [onlyAdminMutations]
+  }
+}).then(router => {
   app.use(router);
   http.listen(port, async () => {
     rainbow(`⚡️ Listening on port ${port} ⚡️`);
