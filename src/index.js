@@ -9,7 +9,14 @@ import egoTokenMiddleware from "ego-token-middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-import { port, egoURL, projectId, esHost } from "./env";
+import {
+  port,
+  egoURL,
+  projectId,
+  esHost,
+  mailchimpListId,
+  nihSubscriptionEmail
+} from "./env";
 import shortUrlStatic from "./shortUrlStatic";
 import { onlyAdminMutations, injectBodyHttpHeaders } from "./middleware";
 
@@ -51,6 +58,12 @@ app.use(
     ]
   })
 );
+
+app.post("/subscribe/:service", (req, res) => {
+  console.log("mailchimpListId: ", mailchimpListId);
+  console.log("nihSubscriptionEmail: ", nihSubscriptionEmail);
+  res.end();
+});
 
 Arranger({
   io,
