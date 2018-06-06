@@ -26,6 +26,7 @@
     "cors": "^2.8.4",
     "ego-token-middleware": "0.0.8",
     "express": "^4.16.2",
+    "filesize": "^3.6.1",
     "graphql-parse-resolve-info": "^4.0.0-beta.7",
     "node-fetch": "^2.1.1",
     "socket.io": "^2.0.4",

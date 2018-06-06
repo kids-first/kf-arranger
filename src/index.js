@@ -10,9 +10,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import { port, egoURL, projectId, esHost } from "./env";
-import {version} from '../package.json';
-
-import shortUrlStatic from "./shortUrlStatic";
+import { version } from "../package.json";
+import { shortUrlStatic, statistics } from "./endpoints";
 import { onlyAdminMutations, injectBodyHttpHeaders } from "./middleware";
 
 const app = express();
@@ -21,8 +20,10 @@ const io = socketIO(http);
 
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic());
-
-app.get('/status', (req, res) => res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost }));
+app.get("/statistics", statistics());
+app.get("/status", (req, res) =>
+  res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost })
+);
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,8 +56,6 @@ app.use(
     ]
   })
 );
-
-
 
 Arranger({
   io,
