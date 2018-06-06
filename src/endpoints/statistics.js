@@ -28,6 +28,10 @@ const STATS = [
   {
     name: "families",
     field: "participants.family_id"
+  },
+  {
+    name: "participants",
+    field: "participants.kf_id"
   }
 ].map(x => ({
   query: "buckets.key",
