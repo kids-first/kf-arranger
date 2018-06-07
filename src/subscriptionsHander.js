@@ -2,7 +2,7 @@ import md5 from "crypto-js/md5";
 import fetch from "node-fetch";
 
 const newMailchimpSubscription = async ({ user }) => {
-  // mailchimp configs
+  // mailchimp configs. bypassing env.js so it's easier to move around later
   const kfMailchimpListId = process.env.KF_MAILCHIMP_LIST_ID;
   const kfMailchimpApiKey = process.env.KF_MAILCHIMP_API_KEY;
   const kfMailchimpUserName = process.env.KF_MAILCHIMP_USERNAME;
