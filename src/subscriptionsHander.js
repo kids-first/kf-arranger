@@ -31,6 +31,8 @@ const newMailchimpSubscription = async ({ user }) => {
   console.log("response: ", response);
 };
 
+const sendNihSubscriptionEmail = async ({ user }) => {};
+
 export default async (req, res) => {
   const { user = {} } = req.body;
   const { acceptedKfOptIn, acceptedNihOptIn } = user;
@@ -43,6 +45,8 @@ export default async (req, res) => {
     res.end();
   }
   if (acceptedNihOptIn) {
+    sendNihSubscriptionEmail({ user });
+    res.end();
   }
   res.end();
 };
