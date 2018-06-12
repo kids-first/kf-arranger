@@ -1,11 +1,12 @@
-FROM keymetrics/pm2:latest-alpine
+FROM mhart/alpine-node:latest
 
-WORKDIR /usr/src/app
-
-RUN npm install pm2 -g
-RUN npm install
+WORKDIR /usr/src
 
 COPY . .
 
-CMD ["pm2-runtime", "index.js"]
+RUN apk add --update --no-cache git
 
+RUN npm install pm2 -g
+RUN npm ci
+
+CMD ["pm2-runtime", "index.js"]
