@@ -21,7 +21,7 @@ const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic());
 app.get("/statistics", statistics());
-app.get("/status", (req, res) =>
+app.get("/status", res =>
   res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost })
 );
 
