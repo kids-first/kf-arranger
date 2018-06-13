@@ -31,7 +31,6 @@ app.use(injectBodyHttpHeaders());
 app.use(
   egoTokenMiddleware({
     egoURL,
-    required: true,
     accessRules: [
       {
         type: "allow",
@@ -51,7 +50,8 @@ app.use(
       },
       {
         type: "allow",
-        route: [`/(.*)/ping`]
+        route: [`/(.*)/ping`],
+        tokenRequired: false
       }
     ]
   })
