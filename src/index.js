@@ -49,7 +49,7 @@ app.use(
       {
         type: "allow",
         route: [`/(.*)/ping`],
-        tokenRequired: false
+        tokenExempt: true
       }
     ]
   })

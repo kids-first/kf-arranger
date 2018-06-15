@@ -24,7 +24,7 @@
     "body-parser": "^1.18.2",
     "chalk-animation": "^1.5.0",
     "cors": "^2.8.4",
-    "ego-token-middleware": "1.0.0",
+    "ego-token-middleware": "1.0.1",
     "express": "^4.16.2",
     "filesize": "^3.6.1",
     "graphql-parse-resolve-info": "^4.0.0-beta.7",
