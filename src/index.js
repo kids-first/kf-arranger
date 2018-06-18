@@ -3,7 +3,6 @@ import "babel-polyfill";
 import express from "express";
 import socketIO from "socket.io";
 import { Server } from "http";
-import { rainbow } from "chalk-animation";
 import Arranger from "@arranger/server";
 import egoTokenMiddleware from "ego-token-middleware";
 import cors from "cors";
@@ -21,7 +20,9 @@ const io = socketIO(http);
 app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic());
 app.get("/statistics", statistics());
-app.get("/status", (req, res) => res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost }));
+app.get("/status", (req, res) =>
+  res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost })
+);
 
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,6 +67,6 @@ Arranger({
 }).then(router => {
   app.use(router);
   http.listen(port, async () => {
-    rainbow(`⚡️ Listening on port ${port} ⚡️`);
+    console.log(`⚡️ Listening on port ${port} ⚡️`);
   });
 });
