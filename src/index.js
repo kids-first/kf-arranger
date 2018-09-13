@@ -9,7 +9,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import { port, egoURL, projectId, esHost } from "./env";
-import { version } from "../package.json";
+import { version, dependencies } from "../package.json";
 import { shortUrlStatic, statistics } from "./endpoints";
 import { onlyAdminMutations, injectBodyHttpHeaders } from "./middleware";
 
@@ -21,7 +21,13 @@ app.use(cors());
 app.get("/s/:shortUrl", shortUrlStatic());
 app.get("/statistics", statistics());
 app.get("/status", (req, res) =>
-  res.send({ version, ego: egoURL, project: projectId, elasticsearch: esHost })
+  res.send({
+    dependencies,
+    version,
+    ego: egoURL,
+    project: projectId,
+    elasticsearch: esHost
+  })
 );
 
 app.use(bodyParser.json({ limit: "50mb" }));
