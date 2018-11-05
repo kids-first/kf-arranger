@@ -39,7 +39,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
     "@babel/register": "^7.0.0-beta.40",
-    "nodemon": "^1.17.5",
+    "nodemon": "1.18.5",
     "prettier": "^1.11.1"
   }
 }
