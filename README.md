@@ -1,5 +1,7 @@
 <p align="center">
   <img src="docs/portal_logo.png" alt="Kids First Portal">
+</p>
+<p align="center">
   <a href="https://github.com/kids-first/kf-arranger/blob/master/LICENSE"><img src="https://img.shields.io/github/license/kids-first/kf-arranger.svg?style=for-the-badge"></a>
 </p>
 
