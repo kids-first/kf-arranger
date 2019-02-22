@@ -3,7 +3,7 @@ import "babel-polyfill";
 import express from "express";
 import socketIO from "socket.io";
 import { Server } from "http";
-import Arranger from "@arranger/server";
+import Arranger, { getProject } from "@arranger/server";
 import egoTokenMiddleware from "ego-token-middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
