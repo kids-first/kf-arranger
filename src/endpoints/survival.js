@@ -37,7 +37,6 @@ const getParticipants = async ({ sqon, projectId }) => {
       }
     }
   `;
-  };
 
   const participants = [];
   let complete = false;
@@ -60,7 +59,6 @@ const getParticipants = async ({ sqon, projectId }) => {
     if (edges.length < size) {
       complete = true;
     }
-    console.log(`unfiltered participants found: ${edges.length}`);
 
     const formattedResults = edges
       // Make sure all fields have useable values
@@ -79,7 +77,6 @@ const getParticipants = async ({ sqon, projectId }) => {
     participants.push(...formattedResults);
   }
 
-  console.log(`filtered participants count: ${participants.length}`);
   return participants;
 };
 
