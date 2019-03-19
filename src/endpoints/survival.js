@@ -21,11 +21,9 @@ const convertCensored = value => {
 };
 
 const getParticipants = async ({ sqon, projectId }) => {
-  const makeQuery = ({ offset, size }) => {
-    return `
-    query ($sqon: JSON) {
+  const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
       participant{
-        hits  (filters: $sqon, first:${size}, offset:${offset}){
+        hits  (filters: $sqon, first:$size, offset:$offset){
           edges {
             node {
               kf_id 
@@ -52,10 +50,9 @@ const getParticipants = async ({ sqon, projectId }) => {
   }
 
   while (!complete) {
-    const query = makeQuery({ offset, size });
     const results = await project.runQuery({
       query,
-      variables: { sqon },
+      variables: { sqon, size, offset },
     });
     offset += size;
 
