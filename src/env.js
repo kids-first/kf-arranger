@@ -9,5 +9,5 @@ export const esHost = process.env.ES_HOST;
 export const esFileIndex = process.env.ES_FILE_INDEX;
 export const esFileType = process.env.ES_FILE_TYPE;
 
-export const survivalPyFile = process.env.SURVIVAL_PY_FILE;
+export const survivalPyFile = process.env.SURVIVAL_PY_FILE || 'resource/py/survival.py';
 export const pythonPath = process.env.PYTHON_PATH || '/usr/local/bin/python';
