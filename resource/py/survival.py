@@ -31,4 +31,4 @@ try:
   # Spit out the results
   printjson(json_results)
 except Exception as e:
-  printjson({'pyerror':str(e)})
+  printjson({'error':str(e)})
