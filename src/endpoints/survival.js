@@ -116,9 +116,9 @@ export default () => async (req, res) => {
     // Get the Participant Data from Arranger:
     const participants = await getParticipants({ sqon, projectId });
 
-    const survivalData = await calculateSurvival(participants);
+    const data = await calculateSurvival(participants);
 
-    res.json({ survivalData });
+    res.json({ data });
   } catch (err) {
     res.status(500).json({ error: err });
   }
