@@ -1,5 +1,5 @@
 import { PythonShell } from 'python-shell';
-import { get } from 'lodash';
+import { get, min } from 'lodash';
 
 import { getProject } from '@arranger/server';
 
@@ -20,6 +20,13 @@ const convertCensored = value => {
   }
 };
 
+const getDiagnosesAge = diagnoses => {
+  const ages = diagnoses
+    .map(diagnosis => parseInt(get(diagnosis, 'node.age_at_event_days')))
+    .filter(age => !isNaN(age));
+  return min(ages);
+};
+
 const getParticipants = async ({ sqon, projectId }) => {
   const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
       participant{
@@ -30,6 +37,15 @@ const getParticipants = async ({ sqon, projectId }) => {
               outcome {
                 age_at_event_days
                 vital_status
+              }
+              diagnoses {
+                hits {
+                  edges {
+                    node {
+                      age_at_event_days
+                    }
+                  }
+                }
               }
             }
           }
@@ -60,19 +76,30 @@ const getParticipants = async ({ sqon, projectId }) => {
       complete = true;
     }
 
-    const formattedResults = edges
-      // Make sure all fields have useable values
-      .filter(
-        edge =>
-          edge.node.kf_id &&
-          !isNaN(parseInt(edge.node.outcome.age_at_event_days)) &&
-          STATUSES.includes(edge.node.outcome.vital_status),
-      )
-      // format for use with SurvivalPy
+    const filteredList = edges
+      // get values we need
       .map(edge => ({
         id: edge.node.kf_id,
-        time: parseInt(edge.node.outcome.age_at_event_days),
+        outcomeAge: parseInt(edge.node.outcome.age_at_event_days),
         censored: convertCensored(edge.node.outcome.vital_status),
+        diagnosesAge: getDiagnosesAge(get(edge, 'node.diagnoses.hits.edges', [])),
+        status: edge.node.outcome.vital_status,
+      }))
+      // Make sure all fields have useable values
+      .filter(
+        item =>
+          item.id &&
+          !isNaN(item.outcomeAge) &&
+          !isNaN(item.diagnosesAge) &&
+          item.outcomeAge >= item.diagnosesAge &&
+          STATUSES.includes(item.status),
+      );
+    const formattedResults = filteredList
+      // Calculate time and format for survivalPy
+      .map(item => ({
+        id: item.id,
+        censored: item.censored,
+        time: item.outcomeAge - item.diagnosesAge,
       }));
     participants.push(...formattedResults);
   }
