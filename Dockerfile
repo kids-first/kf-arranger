@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python2.7-nodejs11
+FROM nikolaik/python-nodejs:python3.7-nodejs11
 
 WORKDIR /usr/src
 
