@@ -4,7 +4,7 @@ WORKDIR /usr/src
 
 COPY . .
 
-RUN pip install -r resource/py/requirements.txt
+RUN pip3 install -r resource/py/requirements.txt
 
 RUN npm install pm2 -g
 RUN npm ci
