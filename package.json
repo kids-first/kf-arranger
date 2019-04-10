@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/kids-first/kf-arranger#readme",
   "dependencies": {
-    "@arranger/server": "1.0.34",
+    "@arranger/server": "1.1.4",
     "apollo-server-core": "1.3.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
