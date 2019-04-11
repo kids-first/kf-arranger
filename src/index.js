@@ -82,7 +82,6 @@ Arranger({
     context: ({ jwt }) => ({ jwt }),
     middleware: [onlyAdminMutations],
   },
-  enableAdmin: true,
 }).then(router => {
   app.use(router);
   http.listen(port, async () => {
