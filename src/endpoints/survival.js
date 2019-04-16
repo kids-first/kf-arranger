@@ -121,7 +121,9 @@ const calculateSurvival = async participants => {
         data.push(message);
       });
 
-      participants.forEach(participant => pyShell.send(JSON.stringify(participant)));
+      participants.forEach(participant => {
+        pyShell.send(JSON.stringify(participant));
+      });
 
       pyShell.end(err => {
         if (err) {
@@ -147,6 +149,7 @@ export default () => async (req, res) => {
 
     res.json({ data });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err });
   }
 };
