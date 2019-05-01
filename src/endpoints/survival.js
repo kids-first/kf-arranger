@@ -1,7 +1,7 @@
 import { PythonShell } from 'python-shell';
 import { get, min } from 'lodash';
 
-import { getProject } from '@arranger/server';
+import { getProject } from '@kfarranger/server';
 
 import { survivalPyFile, pythonPath } from '../env';
 
