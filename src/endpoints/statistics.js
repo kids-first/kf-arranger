@@ -1,7 +1,7 @@
 import elasticsearch from "elasticsearch";
 import { get, set } from "lodash";
 import filesize from "filesize";
-import { buildAggregations, flattenAggregations } from "@arranger/middleware";
+import { buildAggregations, flattenAggregations } from "@kfarranger/middleware";
 import { projectId, esHost, esFileIndex, esFileType } from "../env";
 
 const NESTED_FIELDS = ["participants", "participants.biospecimens"];
