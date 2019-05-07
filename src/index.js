@@ -4,7 +4,7 @@ import express from 'express';
 import socketIO from 'socket.io';
 import { Server } from 'http';
 import Arranger from '@kfarranger/server';
-import egoTokenMiddleware from 'ego-token-middleware';
+import egoTokenMiddleware from 'kfego-token-middleware';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
