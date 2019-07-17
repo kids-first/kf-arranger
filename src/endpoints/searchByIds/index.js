@@ -3,6 +3,7 @@ import { getProject } from '@kfarranger/server';
 
 import byIds from './byIds';
 import byBiospecimenId from './byBiospecimenId';
+import byFamilyId from './byFamilyId';
 
 const runPagedQuery = async (project, query, sqon, resultsPath) => {
   let complete = false;
@@ -43,7 +44,7 @@ const searchSources = (sources) => async (projectId, ids) => {
   return await Promise.all(promises).then(flatten);
 };
 
-const searchAllSources = searchSources([byIds, byBiospecimenId]);
+const searchAllSources = searchSources([byIds, byBiospecimenId, byFamilyId]);
 
 // TODO: multiple queries: one for each entity searched
 // x Participants ID
