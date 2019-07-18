@@ -8,7 +8,15 @@ const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
       edges {
         node {
           kf_id
-          family_id
+          biospecimens {
+            hits {
+              edges {
+                node {
+                  external_sample_id   
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -16,11 +24,11 @@ const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
 }`;
 
 const getSqon = (ids = []) => ({
-  op: CONSTANTS.OR_OP,
+  op: CONSTANTS.AND_OP,
   content: [{
     op: CONSTANTS.IN_OP,
     content: {
-      field: 'family_id',
+      field: 'biospecimens.external_sample_id',
       value: ids,
     },
   }],
@@ -34,12 +42,15 @@ export default {
     const nodes = results.map(datum => get(datum, 'node', {}));
     return ids.map(id => {
       const participantIds = nodes
-        .filter(participant => get(participant, 'family_id') === id)
+        .filter(participant => {
+          const biospecimens = get(participant, 'biospecimens.hits.edges', []);
+          return biospecimens.some(bio => get(bio, 'node.external_sample_id', null) === id);
+        })
         .map(participant => participant.kf_id);
 
       return ({
         search: id,
-        type: 'FAMILY',
+        type: 'SAMPLE EXTERNAL ID',
         participantIds,
       });
     }).filter(res => res.participantIds.length);

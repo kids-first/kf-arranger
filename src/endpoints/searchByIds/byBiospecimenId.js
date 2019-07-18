@@ -1,5 +1,7 @@
 import { get } from 'lodash';
 
+import { CONSTANTS } from '../../utils';
+
 const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
   participant {
     hits (filters: $sqon, first:$size, offset:$offset){
@@ -22,9 +24,9 @@ const query = `query ($sqon: JSON, $size: Int, $offset: Int) {
 }`;
 
 const getSqon = (ids = []) => ({
-  op: 'and',
+  op: CONSTANTS.AND_OP,
   content: [{
-    op: 'in',
+    op: CONSTANTS.IN_OP,
     content: {
       field: 'biospecimens.kf_id',
       value: ids,

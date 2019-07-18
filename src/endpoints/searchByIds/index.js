@@ -2,8 +2,9 @@ import { get, flatten } from 'lodash';
 import { getProject } from '@kfarranger/server';
 
 import byIds from './byIds';
-import byBiospecimenId from './byBiospecimenId';
 import byFamilyId from './byFamilyId';
+import byBiospecimenId from './byBiospecimenId';
+import bySampleExternalId from './bySampleExternalId';
 
 const runPagedQuery = async (project, query, sqon, resultsPath) => {
   let complete = false;
@@ -44,14 +45,7 @@ const searchSources = (sources) => async (projectId, ids) => {
   return await Promise.all(promises).then(flatten);
 };
 
-const searchAllSources = searchSources([byIds, byBiospecimenId, byFamilyId]);
-
-// TODO: multiple queries: one for each entity searched
-// x Participants ID
-// x Participant External ID
-// x Biospecimen ID
-// - Sample External ID (there is only one donor per sample and the IDs are consistent and easy to find)
-// - Family ID
+const searchAllSources = searchSources([byIds, byBiospecimenId, byFamilyId, bySampleExternalId]);
 
 export default () => async (req, res) => {
   const ids = req.body.ids;
