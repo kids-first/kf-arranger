@@ -1,15 +1,18 @@
 import { get } from 'lodash';
 
+import { normalizeResults } from './';
+
+const pageSize = 1000;
+  
 const runPagedQuery = async (project, query, sqon) => {
   let complete = false;
   let offset = 0;
-  const size = 1000;
   let results = {};
 
   while (!complete) {
     const queryResults = await project.runQuery({
       query,
-      variables: { sqon, size, offset },
+      variables: { sqon, size: pageSize, offset },
     });
 
     const normalizedResults = normalizeResults(get(queryResults, 'data', {}));
@@ -17,8 +20,8 @@ const runPagedQuery = async (project, query, sqon) => {
     // NOTE: does not support multiple entyties in a query, yet.
     const entityType = Object.keys(normalizedResults)[0];
     const edges = get(normalizedResults, entityType, []);
-    offset += size;
-    if (edges.length < size) {
+    offset += pageSize;
+    if (edges.length < pageSize) {
       complete = true;
     }
 
