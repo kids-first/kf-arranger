@@ -37,14 +37,15 @@ const getSqon = (ids = []) => ({
 export default {
   query,
   getSqon,
-  resultsPath: 'data.participant.hits.edges',
-  transform: (results, ids) => {
-    const nodes = results.map(datum => get(datum, 'node', {}));
+  transform: (data, ids) => {
+    const participants = get(data, 'participant', [])
+      .filter(p => !!p);
+
     return ids.map(id => {
-      const participantIds = nodes
+      const participantIds = participants
         .filter(participant => {
-          const biospecimens = get(participant, 'biospecimens.hits.edges', []);
-          return biospecimens.some(bio => get(bio, 'node.kf_id', null) === id);
+          const biospecimens = get(participant, 'biospecimens', []);
+          return biospecimens.some(bio => bio.kf_id === id);
         })
         .map(participant => participant.kf_id);
 
@@ -53,6 +54,6 @@ export default {
         type: 'BIOSPECIMEN',
         participantIds,
       });
-    }).filter(res => res.participantIds.length);
+    });
   }
 };

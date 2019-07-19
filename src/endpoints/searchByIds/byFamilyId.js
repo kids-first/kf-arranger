@@ -29,12 +29,13 @@ const getSqon = (ids = []) => ({
 export default {
   query,
   getSqon,
-  resultsPath: 'data.participant.hits.edges',
-  transform: (results, ids) => {
-    const nodes = results.map(datum => get(datum, 'node', {}));
+  transform: (data, ids) => {
+    const participants = get(data, 'participant', [])
+      .filter(p => !!p);
+
     return ids.map(id => {
-      const participantIds = nodes
-        .filter(participant => get(participant, 'family_id') === id)
+      const participantIds = participants
+        .filter(participant => participant.family_id === id)
         .map(participant => participant.kf_id);
 
       return ({
@@ -42,6 +43,6 @@ export default {
         type: 'FAMILY',
         participantIds,
       });
-    }).filter(res => res.participantIds.length);
+    });
   }
 };
