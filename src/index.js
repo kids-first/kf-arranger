@@ -1,8 +1,3 @@
-// Necessary to polyfill Babel (replaces @babel/polyfill since 7.4.0)
-// see https://babeljs.io/docs/en/7.4.0/babel-polyfill
-import "core-js/stable";
-import "regenerator-runtime/runtime";
-
 import express from 'express';
 import socketIO from 'socket.io';
 import { Server } from 'http';

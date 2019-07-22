@@ -7,7 +7,7 @@
     "start": "node index",
     "watch": "nodemon index",
     "deploy": "git push && git push --tags",
-    "test": "cross-env NODE_ENV=\"test\" nyc --reporter=html mocha -w --require @babel/register src/**/*.test.js"
+    "test": "cross-env NODE_ENV=\"test\" nyc --reporter=html mocha --require @babel/register src/**/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -57,14 +57,5 @@
     "printWidth": 100,
     "trailingComma": "all",
     "singleQuote": true
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-optional-chaining",
-      "@babel/plugin-proposal-object-rest-spread"
-    ]
   }
 }
