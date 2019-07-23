@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 import express from 'express';
 import socketIO from 'socket.io';
 import { Server } from 'http';
@@ -10,7 +8,7 @@ import bodyParser from 'body-parser';
 
 import { port, egoURL, projectId, esHost } from './env';
 import { version, dependencies } from '../package.json';
-import { shortUrlStatic, statistics, survival } from './endpoints';
+import { shortUrlStatic, statistics, survival, searchByIds } from './endpoints';
 import { onlyAdminMutations, injectBodyHttpHeaders } from './middleware';
 
 const app = express();
@@ -54,7 +52,7 @@ app.use(
       },
       {
         type: 'allow',
-        route: [`/(.*)/graphql`, `/(.*)/graphql/(.*)`, `/(.*)/download`, `/survival`],
+        route: [`/(.*)/graphql`, `/(.*)/graphql/(.*)`, `/(.*)/download`, `/survival`, '/searchByIds'],
         status: ['approved'],
         role: 'user',
       },
@@ -73,6 +71,8 @@ app.use(
  */
 
 app.post('/survival', survival());
+
+app.post('/searchByIds', searchByIds());
 
 Arranger({
   io,
