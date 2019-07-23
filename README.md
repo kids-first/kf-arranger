@@ -14,4 +14,5 @@ Arranger server is an application that wraps Elasticsearch and provides a GraphQ
 ## Development:
 
 * Installing dependencies: `npm install`
+* Installing dependencies (survival plot): `pip install SurvivalPy`
 * Starting development: `npm run watch`
