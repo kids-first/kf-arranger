@@ -1,6 +1,13 @@
 #!/usr/bin/env node
 require('dotenv').config();
-const babelCfg = fs.readFileSync('.babelrc', 'utf-8');
+const fs = require('fs');
+const babelCfgFile = fs.readFileSync('.babelrc', 'utf-8');
+let babelCfg;
+try {
+  babelCfg = JSON.parse(babelCfgFile);
+} catch (err) {
+  console.warn('Error parsing .babelrc file, ignoring');
+}
 require('@babel/register')(babelCfg);
 
 // Necessary to polyfill Babel (replaces @babel/polyfill since 7.4.0)
