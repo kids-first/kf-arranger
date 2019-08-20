@@ -1,2 +1,4 @@
 @Library(value="kids-first/aws-infra-jenkins-shared-libraries-develop", changelog=false) _
-arranger_api{}
+arranger_api{
+    agentLabel = "terraform-testing"
+}
