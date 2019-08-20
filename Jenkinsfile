@@ -1,2 +1,2 @@
-@Library(value="kids-first/aws-infra-shared-libraries-develop", changelog=false) _
+@Library(value="kids-first/aws-infra-jenkins-shared-libraries", changelog=false) _
 arranger_api{}
