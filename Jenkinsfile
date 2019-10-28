@@ -1,5 +1,5 @@
 @Library(value="kids-first/aws-infra-jenkins-shared-libraries", changelog=false) _
-arranger_api{
+ecs_service_type_1 {
     projectName = "kf-arranger"
     agentLabel = "terraform-testing"
 }
