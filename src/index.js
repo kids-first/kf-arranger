@@ -10,10 +10,14 @@ import { port, egoURL, projectId, esHost } from './env';
 import { version, dependencies } from '../package.json';
 import { shortUrlStatic, statistics, survival, searchByIds } from './endpoints';
 import { onlyAdminMutations, injectBodyHttpHeaders } from './middleware';
+import { postProcessSaveSet } from './utils/saveSet';
+import SQS from 'aws-sdk/clients/sqs';
 
 const app = express();
 const http = Server(app);
 const io = socketIO(http);
+
+const sqs = new SQS({ apiVersion: '2012-11-05' });
 
 app.use(cors());
 
@@ -52,7 +56,13 @@ app.use(
       },
       {
         type: 'allow',
-        route: [`/(.*)/graphql`, `/(.*)/graphql/(.*)`, `/(.*)/download`, `/survival`, '/searchByIds'],
+        route: [
+          `/(.*)/graphql`,
+          `/(.*)/graphql/(.*)`,
+          `/(.*)/download`,
+          `/survival`,
+          '/searchByIds',
+        ],
         status: ['approved'],
         role: 'user',
       },
@@ -81,6 +91,11 @@ Arranger({
   graphqlOptions: {
     context: ({ jwt }) => ({ jwt }),
     middleware: [onlyAdminMutations],
+  },
+  callbacks: {
+    resolvers: {
+      saveSet: postProcessSaveSet(sqs),
+    },
   },
 }).then(router => {
   app.use(router);
