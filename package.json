@@ -22,7 +22,7 @@
   "homepage": "https://github.com/kids-first/kf-arranger#readme",
   "dependencies": {
     "@babel/core": "7.10.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.9.0",
+    "@babel/plugin-proposal-object-rest-spread": "7.10.0",
     "@babel/plugin-proposal-optional-chaining": "7.9.0",
     "@babel/preset-env": "7.9.0",
     "@babel/register": "7.9.0",
