@@ -7,7 +7,7 @@ ecs_service_type_1_standard {
     deploy_scripts_version = "master"
     quick_deploy = "true"
     external_config_repo = "false"
-    container_port = "8081"
+    container_port = "443"
     vcpu_container             = "2048"
     memory_container           = "4096"
     vcpu_task                  = "2048"
