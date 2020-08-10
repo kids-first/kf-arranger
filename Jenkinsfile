@@ -3,6 +3,7 @@ ecs_service_type_1_standard {
     projectName = "kf-arranger"
     environments = "dev,qa,prd"
     docker_image_type = "debian"
+    internal_app = "false"
     entrypoint_command = "pm2-runtime index.js" 
     deploy_scripts_version = "master"
     quick_deploy = "true"
