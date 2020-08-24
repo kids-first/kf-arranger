@@ -14,5 +14,6 @@ ecs_service_type_1_standard {
     vcpu_task                  = "2048"
     memory_task                = "4096"
     health_check_path = "/status"
+    additional_ssl_cert_domain_name = "*.kidsfirstdrc.org"
     dependencies = "ecr"
 }
