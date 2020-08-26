@@ -1,6 +1,6 @@
 {
   "name": "kf-arranger",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.9.0",
     "@babel/preset-env": "7.9.0",
     "@babel/register": "7.9.0",
-    "@kfarranger/server": "1.11.0",
+    "@kfarranger/server": "1.12.0",
     "apollo-server-core": "1.3.2",
     "aws-sdk": "^2.669.0",
     "body-parser": "^1.18.2",
