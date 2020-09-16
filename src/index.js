@@ -9,8 +9,8 @@ import bodyParser from 'body-parser';
 import { port, egoURL, projectId, esHost } from './env';
 import { version, dependencies } from '../package.json';
 import { shortUrlStatic, statistics, survival, searchByIds } from './endpoints';
-import { onlyAdminMutations, injectBodyHttpHeaders } from './middleware';
-import { postProcessSaveSet } from './utils/saveSet';
+import { onlyAdminMutations, injectBodyHttpHeaders, setMutations } from './middleware';
+import { postProcessSets } from './utils/sets';
 import SQS from 'aws-sdk/clients/sqs';
 
 const app = express();
@@ -90,11 +90,11 @@ Arranger({
   esHost,
   graphqlOptions: {
     context: ({ jwt }) => ({ jwt }),
-    middleware: [onlyAdminMutations],
+    middleware: [onlyAdminMutations, setMutations],
   },
   callbacks: {
     resolvers: {
-      saveSet: postProcessSaveSet(sqs),
+      postProcessSets: postProcessSets(sqs),
     },
   },
 }).then(router => {

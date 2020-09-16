@@ -1,6 +1,6 @@
 import AWSMock from 'aws-sdk-mock';
 import AWS from 'aws-sdk';
-import { postProcessSaveSet } from './saveSet';
+import { postProcessSets } from './sets';
 import SQS from 'aws-sdk/clients/sqs';
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
@@ -41,7 +41,7 @@ describe('Test case for SQS SendMessage', () => {
   it('should return a successful response', async () => {
     AWSMock.mock('SQS', 'sendMessage', () => Promise.resolve({ MessageId: '123' }));
     const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
-    const res = await postProcessSaveSet(sqs)(mockSaveSetData);
+    const res = await postProcessSets(sqs)(mockSaveSetData);
     expect(res.MessageId).to.equal('123');
   });
 
@@ -49,7 +49,7 @@ describe('Test case for SQS SendMessage', () => {
     AWSMock.mock('SQS', 'sendMessage', () => Promise.reject('could not send data to queue'));
     const sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
     try {
-      await postProcessSaveSet(sqs)(mockSaveSetData);
+      await postProcessSets(sqs)(mockSaveSetData);
     } catch (err) {
       expect(err).to.eql('could not send data to queue');
     }
