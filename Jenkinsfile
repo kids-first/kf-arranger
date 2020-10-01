@@ -4,6 +4,7 @@ ecs_service_type_1_standard {
     environments = "dev,qa,prd"
     docker_image_type = "debian"
     internal_app = "false"
+    create_default_iam_role = "0"
     entrypoint_command = "pm2-runtime index.js" 
     deploy_scripts_version = "master"
     quick_deploy = "true"
