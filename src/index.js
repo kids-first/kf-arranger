@@ -81,7 +81,6 @@ app.use(
  */
 
 app.post('/survival', survival());
-
 app.post('/searchByIds', searchByIds());
 
 Arranger({
