@@ -8,7 +8,6 @@ ecs_service_type_1_standard {
     deploy_scripts_version = "feature/add-tests"
     ecs_service_type_1_version = "feature/add-tests"
     entrypoint_command = "pm2-runtime index.js" 
-    deploy_scripts_version = "master"
     quick_deploy = "true"
     external_config_repo = "false"
     container_port = "443"
