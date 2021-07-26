@@ -6,8 +6,7 @@ const setMutationNames = ['saveSet', 'deleteSets', 'updateSet'];
 export const onlyAdminMutations = {
   Mutation: (resolve, parent, args, context, info) => {
     const { name: mutationName } = parseResolveInfo(info);
-    const roles = get(context, 'jwt.context.user.roles', []);
-
+    const roles = get(context, 'auth.content.realm_access.roles', []);
     const hasAdminRole = roles.map(toLower).includes('admin');
 
     const adminRoleNeededForMutation = !hasAdminRole && !setMutationNames.includes(mutationName);
@@ -25,7 +24,7 @@ export const setMutations = {
       return resolve(parent, args, context, info);
     }
 
-    const userIdFromToken = get(context, 'jwt.sub', null);
+    const userIdFromToken = get(context, 'auth.content.sub', null);
     const enhancedArgs = { ...args, userId: userIdFromToken };
     return resolve(parent, enhancedArgs, context, info);
   },

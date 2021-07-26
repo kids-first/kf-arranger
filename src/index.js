@@ -2,11 +2,12 @@ import express from 'express';
 import socketIO from 'socket.io';
 import { Server } from 'http';
 import Arranger from '@kfarranger/server';
-import egoTokenMiddleware from 'kfego-token-middleware';
+import Keycloak from 'keycloak-connect';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { port, egoURL, projectId, esHost } from './env';
+import { port, keycloakURL, projectId, esHost } from './env';
+import keycloakConfig from './keycloak';
 import { version, dependencies } from '../package.json';
 import { shortUrlStatic, statistics, survival, searchByIds } from './endpoints';
 import { onlyAdminMutations, injectBodyHttpHeaders, setMutations } from './middleware';
@@ -17,21 +18,29 @@ const app = express();
 const http = Server(app);
 const io = socketIO(http);
 
+const keycloak = new Keycloak({}, keycloakConfig);
 const sqs = new SQS({ apiVersion: '2012-11-05' });
 
 app.use(cors());
 
+app.use(
+  keycloak.middleware({
+      logout: '/logout',
+      admin: '/',
+  }),
+);
+
 /*
  * ===== PUBLIC ROUTES =====
- * Adding routes before ego middleware makes them available to all public
  */
+
 app.get('/s/:shortUrl', shortUrlStatic());
 app.get('/statistics', statistics());
 app.get('/status', (req, res) =>
   res.send({
     dependencies,
     version,
-    ego: egoURL,
+    keycloak: keycloakURL,
     project: projectId,
     elasticsearch: esHost,
   }),
@@ -40,55 +49,22 @@ app.get('/status', (req, res) =>
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(injectBodyHttpHeaders());
-app.use(
-  egoTokenMiddleware({
-    egoURL,
-    accessRules: [
-      {
-        type: 'allow',
-        route: ['/', '/(.*)'],
-        role: 'admin',
-      },
-      {
-        type: 'deny',
-        route: ['/', '/(.*)'],
-        role: ['user'],
-      },
-      {
-        type: 'allow',
-        route: [
-          `/(.*)/graphql`,
-          `/(.*)/graphql/(.*)`,
-          `/(.*)/download`,
-          `/survival`,
-          '/searchByIds',
-        ],
-        status: ['approved'],
-        role: 'user',
-      },
-      {
-        type: 'allow',
-        route: [`/(.*)/ping`],
-        tokenExempt: true,
-      },
-    ],
-  }),
-);
 
 /*
  * ===== RESTRICTED ROUTES =====
- * Adding routes after ego middleware makes them require a valid Bearer Token (Ego JWT)
  */
 
-app.post('/survival', survival());
-app.post('/searchByIds', searchByIds());
+app.post('/survival', keycloak.protect(), survival());
+app.post('/searchByIds', keycloak.protect(), searchByIds());
+
+const externalContext = (req, _res, _con) => ({ auth: req.kauth?.grant?.access_token || {} });
 
 Arranger({
   io,
   projectId,
   esHost,
   graphqlOptions: {
-    context: ({ jwt }) => ({ jwt }),
+    context: externalContext,
     middleware: [onlyAdminMutations, setMutations],
   },
   callbacks: {
@@ -97,7 +73,8 @@ Arranger({
     },
   },
 }).then(router => {
-  app.use(router);
+  app.get('/*/ping', router);
+  app.use(keycloak.protect(), router);
   http.listen(port, async () => {
     console.log(`⚡️ Listening on port ${port} ⚡️`);
   });
