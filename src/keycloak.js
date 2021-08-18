@@ -1,12 +1,12 @@
-import { keycloakURL } from './env';
+import { keycloakClient, keycloakRealm, keycloakURL } from './env';
 
 const keycloakConfig = {
-    realm: 'KidsFirst',
+    realm: keycloakRealm,
     'confidential-port': 0,
     'bearer-only': true,
     'auth-server-url': keycloakURL,
     'ssl-required': 'external',
-    resource: 'kf-arranger',
+    resource: keycloakClient,
 };
 
 export default keycloakConfig;
