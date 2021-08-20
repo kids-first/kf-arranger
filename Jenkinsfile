@@ -17,4 +17,6 @@ ecs_service_type_1_standard {
     health_check_path = "/status"
     additional_ssl_cert_domain_name = "*.kidsfirstdrc.org"
     dependencies = "ecr"
+    publish_to_public_repo = "true"
+    create_additional_internal_alb = "1"
 }
