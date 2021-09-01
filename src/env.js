@@ -1,7 +1,7 @@
 export const port = process.env.PORT || 5050;
 
 export const keycloakURL = process.env.KEYCLOAK_URL || 'https://kf-keycloak-qa.kf-strides.org/auth';
-export const keycloakRealm = process.env.KEYCLOAK_REALM || 'KidsFirst-test-CPE';
+export const keycloakRealm = process.env.KEYCLOAK_REALM || 'kidsfirstdrc';
 export const keycloakClient = process.env.KEYCLOAK_CLIENT || 'kidsfirst-apis';
 
 export const projectId = process.env.PROJECT_ID;
