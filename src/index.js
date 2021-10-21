@@ -23,6 +23,8 @@ const sqs = new SQS({ apiVersion: '2012-11-05' });
 
 app.use(cors());
 
+app.use(injectBodyHttpHeaders());
+
 app.use(
   keycloak.middleware({
       logout: '/logout',
@@ -48,7 +50,6 @@ app.get('/status', (req, res) =>
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-app.use(injectBodyHttpHeaders());
 
 /*
  * ===== RESTRICTED ROUTES =====
