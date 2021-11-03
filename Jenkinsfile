@@ -1,9 +1,6 @@
 @Library(value="kids-first/aws-infra-jenkins-shared-libraries", changelog=false) _
 ecs_service_type_1_standard {
     projectName = "kf-arranger"
-    projectPrefix = "-keycloak"
-    secrets_location = "kf-arranger"
-    main_branch = "keycloak"
     environments = "dev,qa,prd"
     docker_image_type = "debian"
     internal_app = "false"
