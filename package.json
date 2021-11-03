@@ -36,7 +36,7 @@
     "express": "^4.16.2",
     "filesize": "^3.6.1",
     "graphql-parse-resolve-info": "^4.0.0-beta.7",
-    "kfego-token-middleware": "^1.1.0",
+    "keycloak-connect": "^14.0.0",
     "node-fetch": "^2.1.1",
     "python-shell": "^1.0.7",
     "regenerator-runtime": "^0.13.2",
