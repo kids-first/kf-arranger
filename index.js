@@ -2,7 +2,6 @@
 require('dotenv').config();
 const fs = require('fs');
 const babelCfgFile = fs.readFileSync('.babelrc', 'utf-8');
-let babelCfg;
 try {
   babelCfg = JSON.parse(babelCfgFile);
 } catch (err) {
